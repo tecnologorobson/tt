@@ -1,412 +1,387 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#ffffff">
-    <title>Gratuitos! - Dashboard</title>
-    
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/marlonexpert/icones/main/logo1.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* ================= Variaveis ================= */
-        :root {
-            --bg-body: #F5F7FA;
-            --bg-card: #FFFFFF;
-            --text-main: #1F2937;
-            --text-muted: #6B7280;
-            --primary: #2563EB;
-            --danger: #EF4444;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --radius-ui: 16px;
-            --header-height: 70px;
+<HTML língua="pt-BR">
+<cabeça>
+    <meta conjunto de caracteres="UTF-8">
+    <meta nome="janela de visualização" conteúdo="largura=largura do dispositivo, escala inicial=1,0, escala máxima=1,0, escalável pelo usuário=não">
+    <meta nome="cor do tema" conteúdo="#00a884">
+    <título>Chat de Anotações Largura Total</título>
+    <link rela="pré-conexão" href="https://fonts.googleapis.com">
+    <link rela="pré-conexão" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <estilo>
+        /* ================= VARIÁVEIS (Estilo WhatsApp) ================= */
+        :raiz {
+            --cabeçalho wa: #00a884;
+            --wa-bg: #efeae2;
+            --wa-bolha-fora: #d9fdd3;
+            --wa-texto: #111b21;
+            --wa-texto-silenciado: #667781;
+            --wa-input-bg: #f0f2f5;
+            --wa-btn-color: #54656f;
+            --perigo: #ef4444;
+            --primário: #00a884;
         }
 
-        body.dark {
-            --bg-body: #111827;
-            --bg-card: #1F2937;
-            --text-main: #F9FAFB;
-            --text-muted: #9CA3AF;
+        /* ================= REDEFINIR ================= */
+        * {
+            dimensionamento de caixa: caixa de fronteira;
+            margem: 0;
+            enchimento: 0;
+            família de fontes: 'Inter', sem serifa;
+            -webkit-toque-destaque-cor: transparente;
         }
 
-        /* ================= Reset & Base ================= */
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
-            font-family: 'Caveat', cursive;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        corpo, HTML {
+            altura: 100%;
+            largura: 100%;
+            cor de fundo: var(--wa-input-bg);
+            transbordar: escondido; /* Evita scroll duplo no corpo */
         }
 
-        body {
-            margin: 0; padding: 0;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            transition: background-color 0.3s ease;
-            padding-top: calc(var(--header-height) + 20px);
-            padding-bottom: 40px;
-            font-size: 1.1rem;
+        /* ================= ESTRUTURA PRINCIPAL (EXPANDIDA) ================== */
+        .contêiner de aplicativo {
+            largura: 100%;
+            altura: 100%;
+            exibir: flexível;
+            direção flexível: coluna;
+            cor de fundo: var(--wa-bg);
+            posição: relativo;
+            /* Padre de fundo semelhante ao WA */
+            imagem de fundo: gradiente radial(RGBA(0,0,0,0.04) 1px, transparent 1px);
+            tamanho do fundo: 20px 20px;
         }
 
-        /* ================= Header ================= */
-        .app-header {
-            position: fixed; top: 0; left: 0; right: 0;
-            height: var(--header-height);
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            z-index: 100; display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        body.dark .app-header { background: rgba(17, 24, 39, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); }
-
-        .logo { 
-            font-weight: 700; 
-            font-size: 1.8rem; 
-            background: linear-gradient(135deg, #2563EB, #10B981); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
+        /* ================= CABEÇALHO ================= */
+        .cabeçalho de bate-papo {
+            cor de fundo: var(--cabeçalho wa);
+            cor: branco;
+            enchimento: 12px 20px;
+            exibir: flexível;
+            alinhar itens: centro;
+            lacuna: 15px;
+            índice z: 10;
+            caixa-sombra: 0 1px 3px RGBA(0,0,0,0,1);
+            flex-encolhimento: 0;
         }
 
-        .header-actions { display: flex; gap: 8px; }
-        .btn-icon { background: transparent; border: none; cursor: pointer; padding: 8px; border-radius: 50%; color: var(--text-main); display: flex; align-items: center; }
-
-        .search-container { position: relative; display: flex; align-items: center; }
-        .search-input {
-            width: 0; opacity: 0; padding: 0; border: none; background: transparent;
-            color: var(--text-main); font-size: 1.1rem; outline: none; transition: 0.3s;
+        .avatar {
+            largura: 40px;
+            altura: 40px;
+            cor de fundo: RGBA(255,255,255,0,2);
+            raio de borda: 50%;
+            exibir: flexível;
+            alinhar itens: centro;
+            justificar-conteúdo: centro;
+            peso da fonte: audacioso;
+            tamanho da fonte: 1.2rem;
         }
-        .search-container.active .search-input { width: 140px; opacity: 1; margin-right: 5px; border-bottom: 1px solid var(--primary); }
 
-        /* ================= Grid & Scroll Arrows ================= */
-        main { padding: 0 20px; }
-        .category-section { margin-bottom: 30px; animation: slideUp 0.5s ease forwards; opacity: 0; position: relative; }
-        .category-title { font-size: 1rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; }
+        .informações do cabeçalho h1 { tamanho da fonte: 1.1rem; peso da fonte: 600; }
+        .header-info p { font-size: 0.8rem; opacity: 0.8; margin-top: 2px; }
 
-        .grid-wrapper { position: relative; display: flex; align-items: center; }
-
-        .grid {
+        /* ================= ÁREA DE MENSAGENS ================= */
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
             display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            border-radius: var(--radius-ui);
-            box-shadow: var(--shadow-md);
+            flex-direction: column;
+            gap: 10px;
             width: 100%;
         }
-        .grid::-webkit-scrollbar { display: none; }
 
-        /* Setas de Scroll - Ocultas por padrão no mobile */
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            display: none; /* Escondido no Mobile */
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            color: #333;
-            transition: 0.2s;
-        }
-        
-        body.dark .nav-arrow { background: rgba(31, 41, 55, 0.9); color: white; }
-        .nav-arrow:hover { background: var(--primary); color: white; }
-        .arrow-left { left: -15px; }
-        .arrow-right { right: -15px; }
+        /* Esconde a scrollbar de forma limpa */
+        .chat-body::-webkit-scrollbar { width: 6px; }
+        .chat-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
 
-        /* Mostrar setas apenas em telas maiores que 768px */
-        @media (min-width: 768px) {
-            .grid-wrapper:hover .nav-arrow { display: flex; }
-        }
-
-        .card {
-            flex: 0 0 110px;
-            height: 100px;
-            background-color: var(--primary);
+        .message {
+            align-self: flex-end; 
+            background-color: var(--wa-bubble-out);
+            color: var(--wa-text);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-top-right-radius: 0;
+            max-width: 90%; /* Aumentado para aproveitar a largura */
+            min-width: 120px;
             position: relative;
+            box-shadow: 0 1px 0.5px rgba(11,20,26,.13);
+            display: flex;
+            flex-direction: column;
+            animation: popIn 0.2s ease-out forwards;
+        }
+
+        .message::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -8px;
+            width: 0;
+            height: 0;
+            border-bottom: 12px solid transparent;
+            border-left: 10px solid var(--wa-bubble-out);
+        }
+
+        .message-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .message-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            margin-top: 2px;
+        }
+
+        .timestamp { font-size: 0.7rem; color: var(--wa-text-muted); }
+
+        /* AÇÕES */
+        .actions { display: flex; gap: 8px; }
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--wa-text-muted);
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 10px;
-            color: white;
-            text-align: center;
-            scroll-snap-align: start;
-            text-decoration: none;
-            border-right: 1px solid rgba(255,255,255,0.1);
+            padding: 2px;
+            transition: 0.2s;
+            border-radius: 4px;
         }
-        
-        .card:first-child { border-top-left-radius: var(--radius-ui); border-bottom-left-radius: var(--radius-ui); }
-        .card:last-child { border-top-right-radius: var(--radius-ui); border-bottom-right-radius: var(--radius-ui); border-right: none; }
-        .card:active { filter: brightness(0.9); transform: scale(0.98); }
-        .card-title { font-size: 1rem; font-weight: 700; pointer-events: none; word-wrap: break-word; line-height: 1.1; }
+        .action-btn svg { width: 16px; height: 16px; }
+        .action-btn:hover { background: rgba(0,0,0,0.05); color: var(--primary); }
+        .action-btn.delete:hover { color: var(--danger); }
 
-        /* Cores omitidas para brevidade, mas mantidas no funcionamento real... */
-        .verde { background-color: #89C623; } .AZUL { background-color: #2D9BFF; } .tsunami { background-color: #1F73B7; } .academia { background-color: #10559A; } .whatsapp { background-color: #40C351; } .vpn { background-color: #DF337A; } .bloqueador { background-color: #EE3433; } .feriados { background-color: #F84F39; } .codepen { background-color: #1E1F26; } .coelba { background-color: #00a99d; } .embasa { background-color: #03a9f4; } .govbr { background-color: #01A78B; } .azul2 { background-color: #007bff; } .verde2 { background-color: #00995d; } .utilit { background-color: #4285f4; } .wordpress { background-color: #21759b; } .mercadolivre { background-color: #ffe600; color: #333 !important; } .mercadolivre .card-title { color: #333; } .mega { background-color: #d90000; } .zoom { background-color: #2d8cff; } .cuponomia { background-color: #f26522; } .bradesco { background-color: #ee1c23; } .senai { background-color: #004a8f; } .primecursos { background-color: #f9a825; color: #333 !important; } .primecursos .card-title { color: #333; } .baixar { background-color: #4caf50; } .canais { background-color: #f44336; } .canva { background-color: #00C4CC; } .concursos { background-color: #673ab7; } .drive { background-color: #4285f4; } .clideo { background-color: #593993; } .multicanaislc { background-color: #29abe2; } .onedrive { background-color: #0078d4; } .globfone { background-color: #00bcd4; } .youtube0, .youtube1 { background-color: #ff0000; } .cartacapital { background-color: #c62828; } .iconicons { background-color: #3f51b5; } .pinterest { background-color: #e60023; } .logodownload { background-color: #000; } .icons8 { background-color: #00a4e5; } .gratispng { background-color: #8bc34a; } .linkcorreios { background-color: #fdd835; color: #333 !important; } .linkcorreios .card-title { color: #333; } .photoroom { background-color: #6c63ff; } .topflix { background-color: #212121; } .meuguia { background-color: #9c27b0; } .unopar { background-color: #0070c0; } .clideoaudio { background-color: #593993; } .azarado { background-color: #ff9800; color: #333 !important; } .mercadopago { background-color: #00aee4; } .musclewiki { background-color: #004a8f; } .buscape { background-color: #673ab7; } .gov-curso { background-color: #006400; } .plutotv { background-color: #121212; }
+        /* ================= BARRA DE ENTRADA ================= */
+        .chat-footer {
+            background-color: var(--wa-input-bg);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
 
-        /* Edição */
-        .edit-badge { position: absolute; top: 5px; right: 5px; font-size: 14px; background: rgba(0,0,0,0.3); border-radius: 50%; width: 22px; height: 22px; display: none; align-items: center; justify-content: center; }
-        .card.shake .edit-badge { display: flex; }
-        .card.shake { animation: shake 0.3s infinite; }
+        .input-wrapper {
+            flex: 1;
+            background: white;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            padding: 2px 18px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
 
-        /* Modais */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-        .modal-overlay.open { display: flex; }
-        .modal { background: var(--bg-card); width: 90%; max-width: 400px; padding: 25px; border-radius: 24px; }
-        .form-group { margin-bottom: 12px; }
-        .form-input, .form-select { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--text-muted); background: var(--bg-body); color: var(--text-main); font-size: 1.1rem; }
-        .btn-submit { width: 100%; padding: 14px; border-radius: 12px; border: none; background: var(--primary); color: white; font-weight: 700; cursor: pointer; font-size: 1.1rem; }
-        
-        .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(100px); background: #10B981; color: white; padding: 12px 24px; border-radius: 50px; transition: 0.4s; z-index: 2000; }
-        .toast.show { transform: translateX(-50%) translateY(0); }
-        
-        #edit-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--danger); color: white; padding: 15px; text-align: center; transform: translateY(100%); transition: 0.3s; z-index: 90; font-weight: bold; font-size: 1.2rem; }
-        #edit-bar.show { transform: translateY(0); }
+        #msg-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 12px 0;
+            font-size: 1rem;
+            color: var(--wa-text);
+            background: transparent;
+        }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(1deg); } 75% { transform: rotate(-1deg); } }
+        .send-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+
+        /* Indicador de Edição */
+        #edit-indicator {
+            position: absolute;
+            bottom: 80px;
+            left: 20px;
+            right: 20px;
+            background: #111b21;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        #cancel-edit { cursor: pointer; color: var(--danger); font-weight: bold; padding: 5px; }
+
+        .toast {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(17, 27, 33, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 100;
+        }
+        .toast.show { opacity: 1; top: 80px; }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
     </style>
 </head>
 <body>
 
-    <header class="app-header">
-        <div class="logo">GRATUITOS!</div>
-        <div class="header-actions">
-            <div class="search-container" id="search-box">
-                <input type="text" class="search-input" placeholder="BUSCAR..." id="inp-search">
-                <button class="btn-icon" id="btn-search-toggle">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
-            </div>
-            <button class="btn-icon" id="btn-paste"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></button>
-            <button class="btn-icon" id="btn-edit-mode"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>
-            <button class="btn-icon" id="btn-theme"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button>
+<div class="app-container">
+    <div class="toast" id="toast">Copiado!</div>
+    
+    <header class="chat-header">
+        <div class="avatar">#</div>
+        <div class="header-info">
+            <h1>Minhas Notas</h1>
+            <p>Sincronizado via Firebase</p>
         </div>
     </header>
 
-    <main id="app-content"></main>
-    <div class="toast" id="toast"></div>
-    <div id="edit-bar">MODO EDIÇÃO (TOQUE NO ÍCONE PARA EDITAR)</div>
+    <main class="chat-body" id="chat-body"></main>
 
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal">
-            <h2 style="margin:0 0 20px 0; font-size: 1.5rem;">EDITAR ITEM</h2>
-            <form id="form-icon">
-                <input type="hidden" id="f-id">
-                <div class="form-group"><input type="text" id="f-name" class="form-input" placeholder="NOME DO APP" required></div>
-                <div class="form-group"><input type="text" id="f-link" class="form-input" placeholder="URL OU TEXTO PARA COPIAR" required></div>
-                <div class="form-group"><select id="f-category" class="form-select"></select></div>
-                <div class="form-group"><input type="text" id="f-class" class="form-input" placeholder="CLASSE DE COR OU HEX (#000)"></div>
-                <div class="form-group" style="padding: 5px 0;"><label style="font-size:1.1rem; cursor:pointer;"><input type="checkbox" id="f-pinned"> FIXAR ESTE ITEM NO TOPO</label></div>
-                
-                <div style="display:flex; gap:10px; margin-top:10px;">
-                    <button type="button" class="btn-submit" style="background:#EF4444" id="btn-delete">EXCLUIR</button>
-                    <button type="submit" class="btn-submit">SALVAR</button>
-                </div>
-                <button type="button" style="background:transparent; border:none; width:100%; padding:15px; color:var(--text-muted); cursor:pointer; font-size: 1.1rem;" id="btn-close-modal">CANCELAR</button>
-            </form>
-        </div>
+    <div id="edit-indicator">
+        <span>Editando anotação selecionada...</span>
+        <span id="cancel-edit">CANCELAR</span>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <footer class="chat-footer">
+        <form id="chat-form" style="display: contents;">
+            <div class="input-wrapper">
+                <input type="text" id="msg-input" placeholder="Escreva algo..." autocomplete="off" required>
+            </div>
+            <button type="submit" class="send-btn" id="btn-submit">
+                <svg viewBox="0 0 24 24" class="icon" id="icon-send"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                <svg viewBox="0 0 24 24" class="icon" id="icon-save" style="display:none;"><path d="M20 6L9 17l-5-5"/></svg>
+            </button>
+        </form>
+    </footer>
+</div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDo4HgnZG9To1aeDoAbUd7vbfgSUAHHtSs",
-            authDomain: "iconesutil.firebaseapp.com",
-            projectId: "iconesutil",
-            storageBucket: "iconesutil.appspot.com",
-            messagingSenderId: "88285859566",
-            appId: "1:88285859566:web:e15fdb0c615b494955edff"
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = { 
+        apiKey: "AIzaSyDo4HgnZG9To1aeDoAbUd7vbfgSUAHHtSs", 
+        authDomain: "iconesutil.firebaseapp.com", 
+        projectId: "iconesutil", 
+        storageBucket: "iconesutil.appspot.com", 
+        messagingSenderId: "88285859566", 
+        appId: "1:88285859566:web:e15fdb0c615b494955edff" 
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    let editingId = null;
+
+    onAuthStateChanged(auth, user => { if (!user) signInAnonymously(auth); });
+
+    const chatBody = document.getElementById('chat-body');
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('msg-input');
+    const editIndicator = document.getElementById('edit-indicator');
+
+    const q = query(collection(db, "notas_chat"), orderBy("timestamp", "asc"));
+    
+    onSnapshot(q, (snapshot) => {
+        chatBody.innerHTML = '';
+        snapshot.forEach((documento) => renderMessage(documento.id, documento.data()));
+        chatBody.scrollTop = chatBody.scrollHeight;
+    });
+
+    function renderMessage(id, data) {
+        let timeString = data.timestamp ? data.timestamp.toDate().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '--:--';
+
+        const div = document.createElement('div');
+        div.className = 'message';
+        div.innerHTML = `
+            <div class="message-text">${escapeHTML(data.text)}</div>
+            <div class="message-footer">
+                <div class="actions">
+                    <button class="action-btn copy"><svg viewBox="0 0 24 24" class="icon"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></button>
+                    <button class="action-btn edit"><svg viewBox="0 0 24 24" class="icon"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="action-btn delete"><svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/></svg></button>
+                </div>
+                <span class="timestamp">${timeString}</span>
+            </div>
+        `;
+
+        dividir.seletor de consulta('.copia').clicar em = () => copiarTexto(data.text);
+        dividir.seletor de consulta('.editar').clicar em = () => {
+            ID de educação = id;
+            entrada.valentia = dados.texto;
+            entrada.foco();
+            editarIndicador.estilo.exibir = 'flexível';
+            documento.obterElementoPorId('envio de ícone').estilo.exibir = 'none';
+            documento.obterElementoPorId('salvar ícone').estilo.exibir = 'block';
+        };
+        dividir.seletor de consulta('.excluir').clicar em = assíncrono () => {
+            se(confirmar("Excluir nota?")) esperar excluirDoc(doc(db, "notas_chat", id));
         };
 
-        const CATEGORIES = {
-            'servicos-utilidades': 'Serviços & Utilidades',
-            'cursos-concursos': 'Cursos & Concursos',
-            'ferramentas-downloads': 'Ferramentas & Downloads',
-            'compras-produtividade': 'Compras & Produtividade',
-            'design-audio': 'Design & Áudio',
-            'midia-entretenimento': 'Mídia & Entretenimento'
-        };
+        corpo de bate-papai.anexarCriança(dividir);
+    }
 
-        let db, allIcons = [], editMode = false;
+    forma.em invejar = assíncrono (e) => {
+        e.prevenirPadrão();
+        const val = entrada.valentia.aparar();
+        se (!val) retornar;
 
-        async function init() {
-            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            const auth = getAuth(app);
-            onAuthStateChanged(auth, u => !u && signInAnonymously(auth));
-
-            const select = document.getElementById('f-category');
-            for (const [key, val] of Object.entries(CATEGORIES)) select.innerHTML += `<option value="${key}">${val}</option>`;
-
-            onSnapshot(collection(db, "icones"), (snapshot) => {
-                allIcons = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                render();
-            });
-            setupEventListeners();
+        se (ID de educação) {
+            esperar atualizarDoc(doador(banco de dados, "notas_chat", ID de educação), { text: val });
+            cancelarEditar();
+        } outro {
+            esperar adicionarDoc(colagem(banco de dados, "notas_chat"), { text: val, timestamp: serverTimestamp() });
         }
+        entrada.valentia = '';
+    };
 
-        function render(filterText = '') {
-            const container = document.getElementById('app-content');
-            container.innerHTML = '';
-            const filtered = allIcons.filter(i => i.name.toLowerCase().includes(filterText.toLowerCase()));
+    diversidade cancelarEditar() {
+        ID de educação = nulo;
+        entrada.valentia = '';
+        editarIndicador.estilo.exibir = 'nenhum';
+        documento.obterElementoPorId('envio de ícone').estilo.exibir = 'block';
+        documento.obterElementoPorId('salvar ícone').estilo.exibir = 'none';
+    }
 
-            if (!filterText) {
-                const pinned = filtered.filter(i => i.isPinned);
-                if (pinned.length) container.appendChild(createSectionDOM('FAVORITOS', pinned));
-            }
+    documento.obterElementoPorId('cancelar-editar').clicar em = cancelarEditar;
 
-            const grouped = filtered.reduce((acc, icon) => {
-                const cat = icon.category || 'servicos-utilidades';
-                if (!acc[cat]) acc[cat] = [];
-                acc[cat].push(icon);
-                return acc;
-            }, {});
+    assíncrono diversidade copiarTexto(texto) {
+        esperar navegador.área de transferência.escreverTexto(texto);
+        const torrada = documento.obterElementoPorId('torrada');
+        torrada.lista de aulas.adicionário('mostrar');
+        definirTempo limite(() => torrada.lista de aulas.remover('mostrar'), 2000);
+    }
 
-            for (const [key, label] of Object.entries(CATEGORIES)) {
-                if (grouped[key]) container.appendChild(createSectionDOM(label, grouped[key]));
-            }
-        }
-
-        function createSectionDOM(title, icons) {
-            const section = document.createElement('section');
-            section.className = 'category-section';
-            icons.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'grid-wrapper';
-
-            const grid = document.createElement('div');
-            grid.className = 'grid';
-
-            // Setas
-            const btnLeft = document.createElement('button');
-            btnLeft.className = 'nav-arrow arrow-left';
-            btnLeft.innerHTML = '❮';
-            btnLeft.onclick = () => grid.scrollBy({ left: -330, behavior: 'smooth' });
-
-            const btnRight = document.createElement('button');
-            btnRight.className = 'nav-arrow arrow-right';
-            btnRight.innerHTML = '❯';
-            btnRight.onclick = () => grid.scrollBy({ left: 330, behavior: 'smooth' });
-
-            icons.forEach(icon => {
-                const card = document.createElement('div');
-                const isHex = icon.colorClass?.startsWith('#');
-                card.className = `card ${!isHex ? (icon.colorClass || '') : ''} ${editMode ? 'shake' : ''}`;
-                if (isHex) card.style.backgroundColor = icon.colorClass;
-                card.dataset.id = icon.id;
-                card.onclick = () => window.handleIconClick(card);
-                card.innerHTML = `<span class="card-title">${icon.name}</span><div class="edit-badge">✏️</div>`;
-                grid.appendChild(card);
-            });
-
-            wrapper.appendChild(btnLeft);
-            wrapper.appendChild(grid);
-            wrapper.appendChild(btnRight);
-
-            section.innerHTML = `<h3 class="category-title">${title}</h3>`;
-            section.appendChild(wrapper);
-            return section;
-        }
-
-        window.handleIconClick = (el) => {
-            const icon = allIcons.find(i => i.id === el.dataset.id);
-            if (editMode) openModal(icon);
-            else {
-                if (icon.link.startsWith('http')) window.open(icon.link, '_blank');
-                else { navigator.clipboard.writeText(icon.link); showToast('COPIADO!'); }
-            }
-        };
-
-        function setupEventListeners() {
-            const searchBox = document.getElementById('search-box');
-            const searchInput = document.getElementById('inp-search');
-            
-            document.getElementById('btn-search-toggle').onclick = () => {
-                searchBox.classList.toggle('active');
-                if (!searchBox.classList.contains('active')) { searchInput.value = ''; render(); }
-                else { searchInput.focus(); }
-            };
-            searchInput.oninput = (e) => render(e.target.value);
-
-            document.getElementById('btn-edit-mode').onclick = () => {
-                editMode = !editMode;
-                document.getElementById('edit-bar').classList.toggle('show', editMode);
-                render(searchInput.value);
-            };
-
-            document.getElementById('btn-paste').onclick = async () => {
-                try {
-                    const text = await navigator.clipboard.readText();
-                    if (text) openModal({ name: 'NOVO ITEM', link: text }, true);
-                } catch (e) { alert("PERMITA O ACESSO À ÁREA DE TRANSFERÊNCIA."); }
-            };
-
-            document.getElementById('btn-theme').onclick = () => {
-                document.body.classList.toggle('dark');
-                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-            };
-
-            document.getElementById('form-icon').onsubmit = async (e) => {
-                e.preventDefault();
-                const id = document.getElementById('f-id').value;
-                const data = {
-                    name: document.getElementById('f-name').value,
-                    link: document.getElementById('f-link').value,
-                    category: document.getElementById('f-category').value,
-                    colorClass: document.getElementById('f-class').value,
-                    isPinned: document.getElementById('f-pinned').checked,
-                    createdAt: serverTimestamp()
-                };
-                id ? await updateDoc(doc(db, "icones", id), data) : await addDoc(collection(db, "icones"), data);
-                document.getElementById('modal-overlay').classList.remove('open');
-                showToast("SALVO COM SUCESSO!");
-            };
-
-            document.getElementById('btn-delete').onclick = async () => {
-                const id = document.getElementById('f-id').value;
-                if(confirm('DESEJA EXCLUIR ESTE ITEM PERMANENTEMENTE?')) { 
-                    await deleteDoc(doc(db, "icones", id)); 
-                    document.getElementById('modal-overlay').classList.remove('open'); 
-                }
-            };
-            document.getElementById('btn-close-modal').onclick = () => document.getElementById('modal-overlay').classList.remove('open');
-        }
-
-        function openModal(data = {}, isNew = false) {
-            document.getElementById('f-id').value = isNew ? '' : data.id;
-            document.getElementById('f-name').value = data.name || '';
-            document.getElementById('f-link').value = data.link || '';
-            document.getElementById('f-category').value = data.category || 'servicos-utilidades';
-            document.getElementById('f-class').value = data.colorClass || '';
-            document.getElementById('f-pinned').checked = !!data.isPinned;
-            document.getElementById('btn-delete').style.display = isNew ? 'none' : 'block';
-            document.getElementById('modal-overlay').classList.add('open');
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2000);
-        }
-
-        init();
-    </script>
-</body>
-</html>
-
+    diversidade escapeHTML(str) {
+        const p = documento.criarElemento('p');
+        p.textoConteúdo = str;
+        retornar p.HTML interno;
+    }
+</roteiro>
+</corpo>
+</HTML>
